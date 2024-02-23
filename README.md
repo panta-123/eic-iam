@@ -5,7 +5,7 @@ a. nginx
 b. mariadb
 c. IAM
 
-# Changes to be made according to where deployment to be made:
+# Changes to be made according to deployment:
 1. Get the Hostname of your deployment macchine, lets say `myhost.jlab.org`. And add the hostname to following:
     - .env file:
 
