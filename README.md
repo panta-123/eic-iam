@@ -8,6 +8,7 @@ c. IAM
 # Changes to be made according to where deployment to be made:
 1. Get the Hostname of your deployment macchine, lets say `myhost.jlab.org`. And add the hostname to following:
     - .env file:
+
            - IAM_HOST=myhost.jlab.org
            - IAM_BASE_URL=https://myhost.jlab.org
            - IAM_ISSUER=https://myhost.jlab.org
@@ -17,9 +18,11 @@ c. IAM
 4. Password related.
    - .env file:
         - MARIADB_ROOT_PASSWORD=change_me
-        - Whatever you put as password for user `indigoiam` in `dbs_and_user.sql` (change `secret` to `your_password`) . Put the same in:
+        - Whatever you put as password for user `indigoiam` in `dbs_and_user.sql` (change `secret` to `your_password`) . Put the same in
           .env file : `IAM_DB_PASSWORD=secret`
-
+# For logging
+   Make sure you `/var/log/iam` diectory on you host.
+    
 # ADD CILOGON 
   Once you have your hostname , register the IAM to CLILOGON:
   
