@@ -5,7 +5,7 @@ a. nginx
 b. mariadb
 c. IAM
 
-# Changes to be made according to deployment:
+## Changes to be made according to deployment:
 1. Get the Hostname of your deployment macchine, lets say `myhost.jlab.org`. And add the hostname to following:
     - .env file:
 
@@ -20,10 +20,10 @@ c. IAM
         - MARIADB_ROOT_PASSWORD=change_me
         - Whatever you put as password for user `indigoiam` in `dbs_and_user.sql` (change `secret` to `your_password`) . Put the same in
           .env file : `IAM_DB_PASSWORD=secret`
-# For logging
+## For logging
    Make sure you `/var/log/iam` diectory on you host.
     
-# ADD CILOGON 
+## ADD CILOGON 
   Once you have your hostname , register the IAM to CLILOGON:
   
    a. Go to https://cilogon.org/oauth2/register and among other info put following for:
@@ -38,6 +38,12 @@ c. IAM
            - IAM_CILOGON_CLIENT_SECRET<clientSecret>
         
           
-
+# RUN IAM
+  After all the above you can run the instance,
+    a. cd into this directory
+    b, run docker-compose as:
+     ```
+     docker compose --env-file .env -f docker-compose.yml --profile iam up -d 
+     ```
 
            
