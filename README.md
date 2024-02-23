@@ -1,53 +1,73 @@
-This repo is to deploy https://indigo-iam.github.io/v/v1.8.3/docs/overview/ .
-Here we docker-compose for docker based deployment.
-Things in docker-compose:
+## Indigo IAM Docker Deployment
 
-a. nginx
+This repository provides a Docker-based deployment solution for the Indigo IAM service, accessible at [https://indigo-iam.github.io/v/v1.8.3/docs/overview/](https://indigo-iam.github.io/v/v1.8.3/docs/overview/).
 
-b. mariadb
+**Prerequisites:**
 
-c. IAM
+* Docker and Docker Compose installed on your deployment machine.
+* A registered hostname for your deployment, e.g., `myhost.jlab.org`.
+* A host certificate and a JSON web key generated as described below.
 
-## Changes to be made according to deployment:
-1. Get the Hostname of your deployment macchine, lets say `myhost.jlab.org`. And add the hostname to following:
-    - .env file:
+**Deployment Steps:**
+
+1. **Configure Environment Variables:**
+
+   Edit  `.env` file in the project root directory with the following content, replacing placeholders with your actual values:
 
            - IAM_HOST=myhost.jlab.org
            - IAM_BASE_URL=https://myhost.jlab.org
            - IAM_ISSUER=https://myhost.jlab.org
-    - config/nginx.conf file, replace `vulcan.jlab.org` to `myhost.jlab.org`
-2. Generate Host certificate for  `myhost.jlab.org` and put it in certs directory. It should contain `hostcert.pem`, `hostkey.pem`, `ca.pem` .
+
+    Edit:  `config/nginx.conf` file, replace `vulcan.jlab.org` to `myhost.jlab.org`
+    
+2. **Generate Certificates and JSON Web Key:**
+
+- Generate a host certificate for your deployment hostname (`myhost.jlab.org`) and place the following files in the `certs` directory:
+  - `hostcert.pem`
+  - `hostkey.pem`
+  - `ca.pem`
+
+- Follow the instructions at [https://indigo-iam.github.io/v/v1.8.3/docs/getting-started/jwk/](https://indigo-iam.github.io/v/v1.8.3/docs/getting-started/jwk/) to generate a JSON web key and save it as `iam-keystore.jwks` in the `keystore` directory.
+
 3. Generate a JSON web key. Follow the doc https://indigo-iam.github.io/v/v1.8.3/docs/getting-started/jwk/ and put the file name as, `iam-keystore.jwks` inside `keystore` directory.
 5. Password related.
-   - .env file:
+   -  Edit  `.env` file in the project root directory 
         - MARIADB_ROOT_PASSWORD=change_me
-        - Whatever you put as password for user `indigoiam` in `dbs_and_user.sql` (change `secret` to `your_password`) . Put the same in
+   -  Edit `dbs_and_user.sql` file (change `secret` to `your_password`) . Put the same in
           .env file : `IAM_DB_PASSWORD=your_password`
 
-## For logging
-   Make sure you `/var/log/iam` diectory on you host.
-    
-## ADD CILOGON 
-  Once you have your hostname , register the IAM to CLILOGON:
-  
-   a. Go to https://cilogon.org/oauth2/register and among other info put following for:
-   
-      - Callbacks: https://myhost.jlab.org/openid_connect_login
+3. **Configure Logging:**
 
-      - Tick boxes of scopes for all: org.cilogon.userinfo, profile, email, openid
+- Ensure the `/var/log/iam` directory exists on your host machine.
 
-  b. You will get the `clientId`  and `clientSecret` from CILOGON. The make the following changes in .env file:
-     
-           - IAM_CILOGON_CLIENT_ID=<clientId>
-           - IAM_CILOGON_CLIENT_SECRET<clientSecret>
+4. **Register with CILogon:**
+
+- Visit [https://cilogon.org/oauth2/register](https://cilogon.org/oauth2/register) and provide the following information:
+  - **Application Name:** Your IAM application name
+  - **Redirect URI(s):** `https://myhost.jlab.org/openid_connect_login`
+  - **Scopes:** Select all scopes (org.cilogon.userinfo, profile, email, openid)
+- Obtain the `clientId` and `clientSecret` provided by CILogon. Add them to your `.env` file:
+
+  ```
+  IAM_CILOGON_CLIENT_ID=<clientId>
+  IAM_CILOGON_CLIENT_SECRET=<clientSecret>
+  ```
         
           
-# RUN IAM
-  After all the above you can run the instance,
-    a. cd into this directory
-    b, run docker-compose as:
+5. **Run the Deployment:**
 
-     docker compose --env-file .env -f docker-compose.yml --profile iam up -d 
+- Navigate to the project directory in your terminal.
+- Run the following command to start the IAM service in detached mode:
+
+  ```bash
+  docker-compose --env-file .env -f docker-compose.yml --profile iam up -d
+  ```
+
+**Additional Notes:**
+
+- Replace `myhost.jlab.org` with your actual deployment hostname throughout the process.
+- Ensure you have obtained the necessary permissions to create directories and manage files on the host machine.
+- Refer to the official Indigo IAM documentation ([https://indigo-iam.github.io/v/v1.8.3/docs/](https://indigo-iam.github.io/v/v1.8.3/docs/)) for further details and configuration options.
 
 
            
