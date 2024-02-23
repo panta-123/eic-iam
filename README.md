@@ -23,6 +23,7 @@ c. IAM
         - MARIADB_ROOT_PASSWORD=change_me
         - Whatever you put as password for user `indigoiam` in `dbs_and_user.sql` (change `secret` to `your_password`) . Put the same in
           .env file : `IAM_DB_PASSWORD=your_password`
+
 ## For logging
    Make sure you `/var/log/iam` diectory on you host.
     
@@ -30,13 +31,13 @@ c. IAM
   Once you have your hostname , register the IAM to CLILOGON:
   
    a. Go to https://cilogon.org/oauth2/register and among other info put following for:
-      ```
-      Callbacks: https://myhost.jlab.org/openid_connect_login
-      ```
-     And tick the boxes of scopes for all  `org.cilogon.userinfo, profile, email, openid`
+   
+      - Callbacks: https://myhost.jlab.org/openid_connect_login
 
-  b. You will get the `clientId`  and `clientSecret` from CILOGON. The make the following changes:
-     - .env file  :
+      - Tick boxes of scopes for all: org.cilogon.userinfo, profile, email, openid
+
+  b. You will get the `clientId`  and `clientSecret` from CILOGON. The make the following changes in .env file:
+     
            - IAM_CILOGON_CLIENT_ID=<clientId>
            - IAM_CILOGON_CLIENT_SECRET<clientSecret>
         
@@ -45,8 +46,8 @@ c. IAM
   After all the above you can run the instance,
     a. cd into this directory
     b, run docker-compose as:
-     ```
+
      docker compose --env-file .env -f docker-compose.yml --profile iam up -d 
-     ```
+
 
            
