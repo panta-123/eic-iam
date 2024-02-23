@@ -1,8 +1,11 @@
 This repo is to deploy https://indigo-iam.github.io/v/v1.8.3/docs/overview/ .
 Here we docker-compose for docker based deployment.
 Things in docker-compose:
+
 a. nginx
+
 b. mariadb
+
 c. IAM
 
 ## Changes to be made according to deployment:
@@ -14,8 +17,8 @@ c. IAM
            - IAM_ISSUER=https://myhost.jlab.org
     - config/nginx.conf file, replace `vulcan.jlab.org` to `myhost.jlab.org`
 2. Generate Host certificate for  `myhost.jlab.org` and put it in certs directory. It should contain `hostcert.pem`, `hostkey.pem`, `ca.pem` .
-3. Generate a JSON web key. Follow the doc https://indigo-iam.github.io/v/v1.8.3/docs/getting-started/jwk/ and put the file name as : `iam-keystore.jwks` inside `keystore` directory.
-4. Password related.
+3. Generate a JSON web key. Follow the doc https://indigo-iam.github.io/v/v1.8.3/docs/getting-started/jwk/ and put the file name as, `iam-keystore.jwks` inside `keystore` directory.
+5. Password related.
    - .env file:
         - MARIADB_ROOT_PASSWORD=change_me
         - Whatever you put as password for user `indigoiam` in `dbs_and_user.sql` (change `secret` to `your_password`) . Put the same in
