@@ -22,7 +22,7 @@ c. IAM
    - .env file:
         - MARIADB_ROOT_PASSWORD=change_me
         - Whatever you put as password for user `indigoiam` in `dbs_and_user.sql` (change `secret` to `your_password`) . Put the same in
-          .env file : `IAM_DB_PASSWORD=secret`
+          .env file : `IAM_DB_PASSWORD=your_password`
 ## For logging
    Make sure you `/var/log/iam` diectory on you host.
     
