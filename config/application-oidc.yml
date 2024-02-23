@@ -1,0 +1,13 @@
+oidc:
+  providers:
+  - name: cilogon
+    issuer: https://cilogon.org
+    client:
+      clientId: ${IAM_CILOGON_CLIENT_ID}
+      clientSecret: ${IAM_CILOGON_CLIENT_SECRET}
+      redirectUris: ${iam.baseUrl}/openid_connect_login
+      scope: openid,profile,email,org.cilogon.userinfo
+    loginButton:
+      text: CILOGON
+      style: btn-primary
+      title: Sign in with
