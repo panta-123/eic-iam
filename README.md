@@ -43,7 +43,7 @@ This repository provides a Docker-based deployment solution for the Indigo IAM s
 4. **Register with CILogon:**
 
 - Visit [https://cilogon.org/oauth2/register](https://cilogon.org/oauth2/register) and provide the following information:
-  - **Application Name:** Your IAM application name
+  - **Client Name:** Your IAM application name. (IAM-EIC-RUCIO)
   - **Redirect URI(s):** `https://myhost.jlab.org/openid_connect_login`
   - **Scopes:** Select all scopes (org.cilogon.userinfo, profile, email, openid)
 - Obtain the `clientId` and `clientSecret` provided by CILogon. Add them to your `.env` file:
