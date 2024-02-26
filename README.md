@@ -7,6 +7,7 @@ This repository provides a Docker-based deployment solution for the Indigo IAM s
 * Docker and Docker Compose installed on your deployment machine.
 * A registered hostname for your deployment, e.g., `myhost.jlab.org`.
 * A host certificate and a JSON web key generated as described below.
+* Make sure port 443 is open to outside from hostmachine
 
 **Deployment Steps:**
 
